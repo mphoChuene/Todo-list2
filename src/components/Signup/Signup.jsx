@@ -2,6 +2,7 @@ import "./Signup.css";
 import profile from "../../components/image/a.png";
 import email from "../../components/image/email.jpg";
 import pass from "../../components/image/pass.png";
+import { Link } from "react-router-dom";
 import React from "react";
 
 /* function Signup({ handleSignup }) {
@@ -46,7 +47,9 @@ const Signup = () => {
               </div>
 
               <div className="login-button">
-                <button>Create account</button>
+                <button>
+                  <Link to={"/todolist"}>Register</Link>
+                </button>
               </div>
             </div>
           </div>

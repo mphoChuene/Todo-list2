@@ -43,7 +43,9 @@ const Login = () => {
                 />
               </div>
               <div className="login-button">
-                <button>Login</button>
+                <button>
+                  <Link to={"/todolist"}>Login</Link>
+                </button>
               </div>
 
               <p className="link">
