@@ -5,6 +5,7 @@ function TodoList() {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [priorityValue, setPriorityValue] = useState("normal");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const addTodo = () => {
     if (inputValue !== "") {
@@ -34,12 +35,15 @@ function TodoList() {
     setTodos(updatedTodos);
   };
 
+  const filteredTodos = todos.filter((todo) =>
+    todo.text.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <div className="main">
-        <div className="container">
+        <div>
           <h1>Todo List</h1>
-          <br />
           <div>
             <input
               type="text"
@@ -55,16 +59,29 @@ function TodoList() {
               <option value="important">Important</option>
             </select>
             <button onClick={addTodo}>Add</button>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <ul>
-              {todos.map((todo) => (
+              {filteredTodos.map((todo) => (
                 <li key={todo.id} className={`priority-${todo.priority}`}>
                   <input
                     type="text"
                     value={todo.text}
                     onChange={(e) =>
-                      updateTodo(todo.id, e.target.value, priorityValue)
+                      updateTodo(todo.id, e.target.value, todo.priority)
                     }
                   />
+                  <button
+                    onClick={() =>
+                      updateTodo(todo.id, todo.text, priorityValue)
+                    }
+                  >
+                    Edit
+                  </button>
                   <button onClick={() => deleteTodo(todo.id)}>Delete</button>
                 </li>
               ))}
